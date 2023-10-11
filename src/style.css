@@ -1,5 +1,6 @@
 body{
     font-family: 'IBM Plex Serif', serif;
+    background-color: #C7E4F2;
 }
 
 h1{
@@ -41,11 +42,6 @@ small{
 }
 
 .weather-app-wrapper{
-    background-image: url('src/images/clouds.jpg'); /* Replace 'your-image.jpg' with your image file name */
-    background-size: cover; /* Cover the entire viewport */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-attachment: fixed; /* Keep the background fixed while scrolling */
-    background-position: center; /* Center the image horizontally and vertically */
     max-width: 600px;
     margin: 30px auto;
 }
