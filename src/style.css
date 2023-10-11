@@ -21,7 +21,8 @@ ul{
 
 li{
     list-style: none;
-    color: rgb(135,135,135);
+    color: #000;
+    opacity: 0.6;
     padding: 0;
     margin: 0;
     text-transform: capitalize;
@@ -86,11 +87,24 @@ small{
 }
 .weather-forecast-date{
     font-size: 16px;
-    opacity: 0.5;
+    opacity: 0.7;
 }
 .temperature-min{
     opacity: 0.5;
 }
 .weather-forecast-temperature{
     font-size: 13px;
+}
+#city-input{
+
+    background-color: #E4EAEE;
+    border: 1px solid #dadde1;
+    border-radius: 3px;
+}
+
+#submit-button{
+    margin-left: 2px;
+    background-color: #C7E4F2;
+    border: 1px solid #dadde1;
+    border-radius: 3px;
 }
