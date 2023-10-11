@@ -20,7 +20,8 @@ function formatTime(timestamp){
      return `Last updated on  ${day} ${hour}:${minutes}`;
   }
   
-function displayForecast(){
+function displayForecast(response){
+  console.log(response.data);
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
   let days = ["Thu","Fri", "Sat", "Sun", "Mon "];
@@ -40,9 +41,17 @@ function displayForecast(){
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
+
+function getForecast(coordinates){
+  console.log(coordinates);
+  let apiKey = "e6ba34ft27a3a8ccco506b17217f3b8b";
+  let apiUrl= `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`; 
+  axios.get(apiUrl).then(displayForecast);
+}
+
   
 function displayJohannesburg(response){
-    let cityElement = document.querySelector("#city");
+    let cityElement = document.querySelector("#city");        
     let temperatureElement = document.querySelector("#temperature");
     let descriptionElement = document.querySelector("#description");
     let humidityElement = document.querySelector("#humidity");
@@ -60,6 +69,8 @@ function displayJohannesburg(response){
     let iconElement = document.querySelector("#icon");
     iconElement.setAttribute("src",`${response.data.condition.icon_url}`);
     iconElement.setAttribute("alt",  response.data.condition.icon);
+
+    getForecast(response.data.coordinates);
 }
 
 function search(city){
@@ -91,10 +102,7 @@ function displayCelcius(event){
   temperatureElement.innerHTML = Math.round(celciusTemp);
 }
 
-let celciusTemp = null
-displayForecast();
-search("Johannesburg");
-
+let celciusTemp = null;
 
 let form = document.querySelector("#search-bar");
 form.addEventListener("submit", handleSubmit);
@@ -103,4 +111,6 @@ let celciusLink = document.querySelector("#celcius-link");
 celciusLink.addEventListener("click", displayCelcius)
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayFahrenheit)
+fahrenheitLink.addEventListener("click", displayFahrenheit);
+ 
+search("Johannesburg");
