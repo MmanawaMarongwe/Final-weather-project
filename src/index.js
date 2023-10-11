@@ -20,23 +20,41 @@ function formatTime(timestamp){
      return `Last updated on  ${day} ${hour}:${minutes}`;
   }
   
+function formatDay(timestamp){
+  let date =new Date(timestamp * 1000)
+  let weekDays = [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat"
+  ];
+  let day = weekDays[date.getDay()] ;
+  return day;
+}  
+
+
 function displayForecast(response){
   console.log(response.data);
+  let dailyForecast =  response.data.daily
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
-  let days = ["Thu","Fri", "Sat", "Sun", "Mon "];
-  days.forEach(function(day){
+  dailyForecast.forEach(function(forecastDay, index ){
+    if (index < 6){
   forecastHTML = forecastHTML + `            
   
   <div class="col-2">
-    <div class="weather-forecast-date">${day}</div>
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdUijW8Pl6X57WSf5jgv0q00gtqFw0w0saJw&usqp=CAU" alt="" width="36" >
+    <div class="weather-forecast-date">${formatDay(forecastDay.time)}</div>
+    <img src= ${forecastDay.condition.icon_url} alt="" width="36" >
     <div class="weather-forecast-temperatures">
-      <span class="temperature-max">18</span>
-      <span class="temperature-min">12</span>
+      <span class="temperature-max">${Math.round(forecastDay.temperature.maximum)}°</span>
+      <span class="temperature-min">${Math.round(forecastDay.temperature.minimum)}°</span>
     </div>
   </div>
 `;
+}
   })  
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
@@ -45,7 +63,7 @@ function displayForecast(response){
 function getForecast(coordinates){
   console.log(coordinates);
   let apiKey = "e6ba34ft27a3a8ccco506b17217f3b8b";
-  let apiUrl= `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`; 
+  let apiUrl= `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude  }&key=${apiKey}&units=metric`; 
   axios.get(apiUrl).then(displayForecast);
 }
 
