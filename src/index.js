@@ -20,6 +20,27 @@ function formatTime(timestamp){
      return `Last updated on  ${day} ${hour}:${minutes}`;
   }
   
+function displayForecast(){
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Thu","Fri", "Sat", "Sun", "Mon "];
+  days.forEach(function(day){
+  forecastHTML = forecastHTML + `            
+  
+  <div class="col-2">
+    <div class="weather-forecast-date">${day}</div>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdUijW8Pl6X57WSf5jgv0q00gtqFw0w0saJw&usqp=CAU" alt="" width="36" >
+    <div class="weather-forecast-temperatures">
+      <span class="temperature-max">18</span>
+      <span class="temperature-min">12</span>
+    </div>
+  </div>
+`;
+  })  
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+  
 function displayJohannesburg(response){
     let cityElement = document.querySelector("#city");
     let temperatureElement = document.querySelector("#temperature");
@@ -71,8 +92,9 @@ function displayCelcius(event){
 }
 
 let celciusTemp = null
-
+displayForecast();
 search("Johannesburg");
+
 
 let form = document.querySelector("#search-bar");
 form.addEventListener("submit", handleSubmit);
